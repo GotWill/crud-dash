@@ -54,7 +54,7 @@ export default function CriarConta() {
 
   type schemaForm = z.infer<typeof schemaForm>
 
-  const { register, handleSubmit, watch, control, setValue, formState: { errors, isSubmitting } } = useForm<schemaForm>({
+  const { register, handleSubmit, watch, reset, control, setValue, formState: { errors, isSubmitting } } = useForm<schemaForm>({
     resolver: zodResolver(schemaForm),
     defaultValues: {
       email: '',
@@ -76,16 +76,27 @@ export default function CriarConta() {
     try {
       const response = await api.post('/users', values)
 
-
       if (response.data.token) {
         setCookie('token', response.data.token, {
           maxAge: 60 * 60 * 24 * 7,
-          path: '/login',
+          path: '/',
         });
 
         addToast({
           title: "Tudo pronto! Sua conta foi criada com sucesso.",
           color: 'success',
+        })
+
+        reset({
+          email: '',
+          name: '',
+          password: '',
+          verifyPassword: '',
+          phone: {
+            country: '',
+            ddd: '',
+            number: ''
+          }
         })
 
         router.push('/dashboard')

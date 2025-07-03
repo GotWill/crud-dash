@@ -14,7 +14,7 @@ import { Eye, EyeOff, LoaderCircle } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { api } from "@/app/lib/api";
-import { getCookie, setCookie } from "cookies-next";
+import { setCookie } from "cookies-next";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from 'next/navigation'
 import { AxiosError } from "axios";
@@ -44,8 +44,6 @@ export default function Login() {
   })
 
   const sendForm = async (values: schemaForm) => {
-    console.log('Valores enviados:', values);
-
     try {
       const response = await api.post("/auth/login", values);
 
@@ -95,7 +93,7 @@ export default function Login() {
               variant="bordered"
               {...register('email')}
               isRequired
-              className="w-full"
+              className="w-full dark:text-black"
             />
 
             <Input
@@ -119,7 +117,7 @@ export default function Login() {
               }
               type={isVisible ? "text" : "password"}
               isRequired
-              className="w-full"
+              className="w-full dark:text-black"
             />
 
             <div className="flex items-center justify-between">
