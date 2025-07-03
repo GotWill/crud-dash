@@ -99,7 +99,7 @@ export default function CriarConta() {
           }
         })
 
-        router.push('/dashboard')
+        window.location.href = '/dashboard';
       }
 
     } catch (error) {
